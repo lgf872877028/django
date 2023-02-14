@@ -1,12 +1,12 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static '/plugins/bootstrap-3.4.1/css/bootstrap.min.css'%}">
-    <style>
+    {% block css %}{% endblock %}
+<style>
         .	.navbar{
 	           border-radius :0;
         }
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/depart/list">部门管理 <span class="sr-only">(current)</span></a></li>
         <li class="active"><a href="/user/list">用户管理 <span class="sr-only">(current)</span></a></li>
-        <li><a href="#"></a></li>
+
 
       </ul>
          {#右上角#}
@@ -62,53 +62,14 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div>
-    <div class="container">
-{#     按钮#}
-            <a style="margin-bottom: 10px; display: inline-flex; align-items: center;" class="btn" href="/depart/add" target="_blank">
-                    <span style="margin-right: 5px;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>添加
-            </a>
 
-{# 表格#}
-          <div class="panel panel-default">
-      <!-- Default panel contents -->
-      <div class="panel-heading">
-          <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-          部门列表
-      </div>
-
-
-      <!-- Table -->
-      <table class="table table-bordered    ">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>名称</th>
-            <th>操作</th>
-
-          </tr>
-        </thead>
-        <tbody>
-        {% for obj in queryset %}
-          <tr>
-            <th scope="row">{{ obj.id }}</th>
-            <td>{{ obj.title }}</td>
-            <td>
-                <a class="btn" style="background-color:cornflowerblue ;padding:1px 1.5px" href="/depart/{{ obj.id}}/edit">编辑</a>
-                <a class="btn" style="background-color:red ;padding:1px 1.5px" href="/depart/delete?nid={{ obj.id }}">删除</a>
-            </td>
-
-          </tr>
-
-        {% endfor %}
-        </tbody>
-      </table>
+    <div>
+        {% block content %}{% endblock %}
     </div>
-    </div>
-</div>
 
 
-
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'plugins/bootstrap-3.4.1/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-3.4.1/js/bootstrap.min.js' %}"></script>
+    {% block js %}{% endblock %}
 </body>
 </html>
