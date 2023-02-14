@@ -32,27 +32,29 @@
         </thead>
         <tbody>
 
-          <tr>
-             {% for obj in q %}
-                 <th>{{ obj.id }}</th>
-                        <td>{{ obj.name }}</td>
-                        <td>{{ obj.password }}</td>
-                        <td>{{ obj.age }}</td>
-                        <td>{{ obj.account }}</td>
-                        <td>{{ obj.time|date:"Y-m-d" }}</td>
-                         <td>{{ obj.depart.title }}</td>
-                        <td>{{ obj.get_gender_display }}</td>
 
+         {% for obj in q %}
+             <tr>
+                 <th>{{ obj.id }}</th>
+                <td>{{ obj.name }}</td>
+                <td>{{ obj.password }}</td>
+                <td>{{ obj.age }}</td>
+                <td>{{ obj.account }}</td>
+                <td>{{ obj.time|date:"Y-m-d" }}</td>
+                <td>{{ obj.depart.title }}</td>
+                <td>{{ obj.get_gender_display }}</td>
+                <td style="text-align:center ; width:150px " >
+                <a class="btn" style="background-color:cornflowerblue ;margin-right: 30px;padding:1px 1.5px" href="/user/{{ obj.id}}/edit">编辑</a>
+                <a class="btn" style="background-color:red ;padding:1px 1.5px" href="/user/delete?nid={{ obj.id }}">删除</a>
+                 </td>
+            </tr>
 
 
              {% endfor %}
 
 
 
-            <td style="text-align:center ; width:150px " >
-                <a class="btn" style="background-color:cornflowerblue ;margin-right: 30px;padding:1px 1.5px" href="/depart/{{ obj.id}}/edit">编辑</a>
-                <a class="btn" style="background-color:red ;padding:1px 1.5px" href="/depart/delete?nid={{ obj.id }}">删除</a>
-            </td>
+
 
           </tr>
 

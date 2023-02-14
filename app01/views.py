@@ -38,6 +38,9 @@ def depart_edit(request, nid):
 
 
 class UserinfoForm(forms.ModelForm):
+    #   重写name 样式
+    name = forms.CharField(min_length=3, label="用户名")
+
     class Meta:
         model = models.Userinfo
         fields = '__all__'
@@ -55,12 +58,43 @@ def user_list(request):
     form = UserinfoForm()
     q = models.Userinfo.objects.all()
 
-
     return render(request, 'user_list.html', {'form': form, 'q': q})
+
+
 def user_add(request):
-    if request.method=="GET":
+    if request.method == "GET":
         form = UserinfoForm()
-        return render(request, 'user_add.html',{'form':form})
+        return render(request, 'user_add.html', {'form': form})
+
+    form = UserinfoForm(data=request.POST)
+
+    if form.is_valid():
+        form.save()
+
+        return redirect('/user/list')
+
+    return render(request, 'user_add.html', {'form': form})
 
 
+def user_edit(request, nid):
+    if request.method == "GET":
+        row = models.Userinfo.objects.filter(id=nid).first()
+        form = UserinfoForm(instance=row)
+        return render(request, 'user_edit.html', {'form': form})
+
+    row = models.Userinfo.objects.filter(id=nid).first()
+    form = UserinfoForm(data=request.POST, instance=row)
+    if form.is_valid():
+        # userinfo = form.save(commit=False)
+        # userinfo.account = 0
+        # userinfo.save()
+        form.save()
+
+        return redirect('/user/list')
+    return render(request, 'user_edit.html', {'form': form})
+def user_delect(request ):
+    nid = request.GET.get('nid')
+
+    models.Userinfo.objects.filter(id=nid).delete()
+    return redirect('/user/list')
 
