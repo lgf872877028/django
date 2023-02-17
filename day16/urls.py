@@ -27,5 +27,10 @@ urlpatterns = [
     path('user/add', views.user_add),
     path('user/<int:nid>/edit', views.user_edit),
     path('user/delete', views.user_delect),
+    path('pretty/list', views.pretty_list),
+    path('pretty/add', views.pretty_add),
+    path('pretty/<int:nid>/edit', views.pretty_edit),
+    path('pretty/delete', views.pretty_delete),
+
 
 ]

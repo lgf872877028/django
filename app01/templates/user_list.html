@@ -1,67 +1,70 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="container">
-{#     按钮#}
-            <a style="margin-bottom: 10px; display: inline-flex; align-items: center;" class="btn" href="/user/add" target="_blank">
-                    <span style="margin-right: 5px;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>添加
-            </a>
+    <div class="container">
+        {#     按钮#}
+        <a style="margin-bottom: 10px; display: inline-flex; align-items: center;" class="btn" href="/user/add"
+           target="_blank">
+            <span style="margin-right: 5px;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>添加
+        </a>
 
-{# 表格#}
-          <div class="panel panel-default">
-      <!-- Default panel contents -->
-      <div class="panel-heading">
-          <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-          用户列表
-      </div>
-
-
-
-      <!-- Table -->
-      <table class="table table-bordered    ">
-        <thead>
-          <tr >
-                <th>序列</th>
-            {% for field in form %}
-
-                <th>{{ field.label_tag}}</th>
-
-            {% endfor %}
-                <th style="color: coral ;text-align:center" >操作</th>
-          </tr>
-        </thead>
-        <tbody>
+        {# 表格#}
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                用户列表
+            </div>
 
 
-         {% for obj in q %}
-             <tr>
-                 <th>{{ obj.id }}</th>
-                <td>{{ obj.name }}</td>
-                <td>{{ obj.password }}</td>
-                <td>{{ obj.age }}</td>
-                <td>{{ obj.account }}</td>
-                <td>{{ obj.time|date:"Y-m-d" }}</td>
-                <td>{{ obj.depart.title }}</td>
-                <td>{{ obj.get_gender_display }}</td>
-                <td style="text-align:center ; width:150px " >
-                <a class="btn" style="background-color:cornflowerblue ;margin-right: 30px;padding:1px 1.5px" href="/user/{{ obj.id}}/edit">编辑</a>
-                <a class="btn" style="background-color:red ;padding:1px 1.5px" href="/user/delete?nid={{ obj.id }}">删除</a>
-                 </td>
-            </tr>
+            <!-- Table -->
+            <table class="table table-bordered    ">
+                <thead>
+                <tr>
+                    <th>序列</th>
+                    {#          通过遍历form中的所有label把需要显示的数据列入页面#}
+                    {% for field in form %}
+
+                        <th>{{ field.label }}</th>
+
+                    {% endfor %}
+                    <th style="color: coral ;text-align:center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {#通过循环传入的q 得到数据库中所有的数据 添加到页面 然后在for循环中加入编辑和删除按钮 确保每行数据都可以操作 并在创建按钮式让按钮对应的id穿到get中方便views查询#}
+                {% for obj in q %}
+                    <tr>
+                        <th>{{ obj.id }}</th>
+                        <td>{{ obj.name }}</td>
+                        <td>{{ obj.password }}</td>
+                        <td>{{ obj.age }}</td>
+                        <td>{{ obj.account }}</td>
+                        <td>{{ obj.time|date:"Y-m-d" }}</td>
+                        <td>{{ obj.depart.title }}</td>
+                        <td>{{ obj.get_gender_display }}</td>
+                        <td style="text-align:center ; width:150px ">
+                            <a class="btn" style="background-color:cornflowerblue ;margin-right: 30px;padding:1px 1.5px"
+                               href="/user/{{ obj.id }}/edit">编辑</a>
+                            <a class="btn" style="background-color:red ;padding:1px 1.5px"
+                               href="/user/delete?nid={{ obj.id }}">删除</a>
+                        </td>
+                    </tr>
 
 
-             {% endfor %}
+                {% endfor %}
 
 
 
 
 
-          </tr>
+                </tr>
 
 
-        </tbody>
-      </table>
+                </tbody>
+            </table>
+        </div>
     </div>
     </div>
-</div>
 {% endblock %}

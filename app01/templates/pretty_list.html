@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="container">
+            <div style="display: flex; align-items: center; justify-content: space-between;width: 1100px;margin-bottom: 10px;">
+                <a class="btn btn-primary" href="/pretty/add" target="_blank">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>添加
+                </a>
+
+                <form class="form-inline table-bordered" style="text-align: right;" method="get">
+                    <div class="form-group" style="display: inline-flex; ">
+                        <input type="text" name="q" class="form-control-plaintext" placeholder="输入想要的数段" value={{ data|default:'' }}>
+
+
+                        <button type="submit" style="border-radius :0 " class="btn btn-default">搜索
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+
+        {# 表格#}
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                用户列表
+            </div>
+
+
+            <!-- Table -->
+            <table class="table table-bordered    ">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    {#          通过遍历form中的所有label把需要显示的数据列入页面#}
+                    {% for field in m %}
+
+                        <th>{{ field.label }}</th>
+
+                    {% endfor %}
+                    <th style="color: coral ;text-align:center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {#通过循环传入的q 得到数据库中所有的数据 添加到页面 然后在for循环中加入编辑和删除按钮 确保每行数据都可以操作 并在创建按钮式让按钮对应的id穿到get中方便views查询#}
+                {% for obj in form %}
+                    <tr>
+                        <th>{{ obj.id }}</th>
+                        <td>{{ obj.mobile }}</td>
+
+                        <td>{{ obj.price }}</td>
+                        <td>{{ obj.level }}</td>
+                        <td>{{ obj.status }}</td>
+                        <td style="text-align:center ; width:150px ">
+                            <a class="btn"
+                               style="background-color:cornflowerblue ;margin-right: 30px;padding:1px 1.5px"
+                               href="/pretty/{{ obj.id }}/edit">编辑</a>
+                            <a class="btn" style="background-color:red ;padding:1px 1.5px"
+                               href="/pretty/delete?nid={{ obj.id }}">删除</a>
+                        </td>
+                    </tr>
+
+
+                {% endfor %}
+
+
+
+
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+{% endblock %}
